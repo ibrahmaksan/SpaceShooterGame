@@ -4,4 +4,4 @@
 OYUNDAN BİR RESİM:
 -----------------------------
 <br>
-![Screenshot from the game](https://github.com/ibrahmaksan/WEB-PROGRAMLAMA--SPACE-SHOOTER/blob/main/images/oyundan_kare.png)
+![Screenshot from the game](https://github.com/ibrahmaksan/WEB-PROGRAMLAMA--SPACE-SHOOTER/blob/main/oyundan_kare.png)
