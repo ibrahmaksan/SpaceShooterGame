@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Shooter V</title>
+    <style>
+        body{
+            background-color: #343D46;
+        }
+
+        .baslik{
+            font-size: 15px;
+            color: yellow;
+        }
+       .skor,.asama,.ad{
+            display: inline-block;
+            width: 400px;
+            height: 30px;
+            background-color: #343D46;
+            color: white;
+            font-size: 30;
+            font-family: 'Comic Sans MS';
+       }
+
+       .perde{
+        display: flex;
+       }
+
+        .aciklama{
+            width: 300px;
+            color:white;
+            background-color: black;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="skor"><p>SKOR: </p></div>
+    <div class="asama"><p>ASAMA: </p></div>
+    <div class="perde"><canvas class = "tablom" id="myCanvas"></canvas><div class="aciklama"><p class="bingo"> <span class="baslik"> ----------- SPACE SHOOTER--------------</span><br>Oyun Kuralları <br> r1- Hareketler sağ ve sol yön tuşları ile sağlanmaktadır. <br> 2- Ateş etmek için Space tuşuna basılmalıdır. Eğer herhangi bir düşmanın aşağı inmesine izin verirsen oyunu kaybedersin. <br> ---------Oyun İlerleyişi ------- <br> Oyunda düşman uzaylıları vurarak skor artımı sağlanır. Skorla birlikte aşamada artmaktadır. Aşamanız arttıkça düşmanın ve uzay aracınızın hızı artmaktadır.Oyunda 3 aşama vardır. Son aşamadan sonra hızlar sabitlenir.</p></div></div>
+    <script src="index_1.js"></script>
+</body>
+</html>
