@@ -4,7 +4,6 @@
 const ctx = document.getElementById("myCanvas"); // Buradaki tüm işlemler dom işlemleri için html ile bağlanyı için yapıldı.
 const tablo = document.querySelector(".skor");
 const tablo2 = document.querySelector(".asama");
-const buton = document.querySelector(".buton");
 
 
 ctx.width = 900;
@@ -20,6 +19,12 @@ image_player.src = "./images/uzay_gemisi.png"
 
 const image_uzayli = new Image(); // uzaylı resmi için
 image_uzayli.src = "./images/uzayli.jpg"
+
+const gun_audio= new Audio(); // laser gun sesi
+gun_audio.src = "./images/laser.mp3"
+
+const bomb = new Audio(); // uzayli patlama sesi
+bomb.src = "./images/bomb.mp3"
 
 
 let score = 0; // skor ve aşamalar tutulacak.
@@ -43,7 +48,7 @@ document.addEventListener("keyup",hareket); // tuslara basildiğinda hareket sa�
 
 setInterval(map_update,1000/60); // 60 fps olması için 1000/60 yaptım.
 
-function map_update(){ 
+function map_update(){ // her seferde haritadaki görsel değişimleri yapacak fonksiyon.
    
     if(score>=10 && asama == 1){
         asama+=1;
@@ -61,18 +66,15 @@ function map_update(){
         asama = 4;
     }
 
-    tablo.innerHTML = "SKOR: " + score; 
+    tablo.innerHTML = "SKOR: " + score; // skor ve aşama yazılacak.
     tablo2.innerHTML = "AŞAMA: " + asama; 
 
     c.fillStyle = "#0E0511"; // arka planı boyamak için renk seçimim.
     c.fillRect(0,0,900,600);
 
     c.drawImage(image_player,pozisyon_x,pozisyon_y); // Oyuncu gemisi çizilecek.
-    pozisyon_x += speed*direction;
+    pozisyon_x += speed*direction; // eger speed değiştiyse eksen yönü değiecek.
     
-
-    console.log(score);
-
     if(pozisyon_x <=0){ // eğer gemi başlangıçta veya sondaysa koşulları.
         speed = 0;
         pozisyon_x = 0;
@@ -82,14 +84,14 @@ function map_update(){
         pozisyon_x = 825;
     }
 
-    vurus_kontrol(); // dusman vuruldu mu kontrolü.
+    vurus_kontrol(); // dusman vuruldu mu kontrolü. Vurulduysa listeden çıkacak.
 
-    if(dusmanlar.length>0){ // dusmanın asagi dogru ilerlemelesi saglanir.
+    if(dusmanlar.length>0){ // dusmanın asagi dogru ilerlemelesi saglanir. Y ekseni değeri arttırılır.
         c.drawImage(image_uzayli,dusmanlar[0][0],dusmanlar[0][1]);
         dusmanlar[0][1]+= dusman_hizi;   
     }
 
-    if(dusmanlar.length == 0){
+    if(dusmanlar.length == 0){ // dusman kalmadıysa yeni düşman yaratılır.
         dusman_yarat();
     }
 
@@ -111,18 +113,18 @@ function map_update(){
 
 function hareket(e){ // hareket fonksiyonudur.
 
-    if(e.code == "ArrowRight"){
+    if(e.code == "ArrowRight"){ // sağ tuşa basıldığında x ekseninde 5 birim eklenerek sağa gidilir.
         speed = 5;
         direction = 1;
         
     }
 
-    else if(e.code == "ArrowLeft"){
+    else if(e.code == "ArrowLeft"){   // sol tuşa basıldığında x ekseninde -5 birim eklenerek sağa gidilir.
         speed = -5;
         direction = 1;
        
     }
-    else if(e.code =="Space"){
+    else if(e.code =="Space"){ // space ' e basıldığında mermi listesine mermi eklenir.
         fire();
     }
 }
@@ -132,13 +134,14 @@ function fire(){ // sıkılan mermileri eklemek için kullanacağım.
     let mermi_x = pozisyon_x+20;
     let mermi_y = pozisyon_y;
     mermiler.unshift([mermi_x,mermi_y]);
+    gun_audio.play(); // mermi sesi oynatılır. 1 sn olduğundan ötürü her sıkıldığında ses çıkmayabilir.
 }
 
 function dusman_yarat(){ // dusman yaratmak için kullandım.
 
     let dusman_x = Math.random()*800;
     let dusman_y = 0;
-    dusmanlar.unshift([dusman_x,dusman_y]);
+    dusmanlar.unshift([dusman_x,dusman_y]); // dusmanlar listeye başa gelecek şekilde eklenir.
 }
 
 function vurus_kontrol(){ // dusmanın vurulup vurulmadıgının kontrolunu yaptim.
@@ -148,6 +151,7 @@ function vurus_kontrol(){ // dusmanın vurulup vurulmadıgının kontrolunu yapt
             if((mermiler[i][0]>=dusmanlar[0][0] && mermiler[i][0]<=dusmanlar[0][0]+50) && (mermiler[i][1]<=dusmanlar[0][1]+25) && mermiler[i][1]>=dusmanlar[0][1]){
                 dusmanlar.pop();
                 console.log("dusman vuruldu");
+                bomb.play(); // dusman vurulduysa efekt sesi verecek. skor 1 artacak.
                 score += 1;
                 return true;
             }
@@ -155,7 +159,7 @@ function vurus_kontrol(){ // dusmanın vurulup vurulmadıgının kontrolunu yapt
     }
 }
 
-function game_over(){ // oyunun bitip bitmediğinin kontrolunu yaptım.
+function game_over(){ // oyunun bitip bitmediğinin kontrolunu yaptım. Oyun biterse her şey sıfırlanacak.
 
     if(dusmanlar[0][1]>=580){
         alert("Oyun bitti, yeniden başlamak için tamama tıklayın.\nSkor:"+ score + "\nAşama: " + asama);
