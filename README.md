@@ -4,4 +4,4 @@
 OYUNDAN BİR RESİM:
 -----------------------------
 <br>
-<img src="/images/oyundan_kare.jpg" alt="alt text" width="320" height="180">
+![Screenshot from the game](https://github.com/ibrahmaksan/WEB-PROGRAMLAMA--SPACE-SHOOTER/blob/main/images/oyundan_kare.jpg)
