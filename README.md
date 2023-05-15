@@ -4,4 +4,4 @@
 OYUNDAN BİR RESİM:
 -----------------------------
 <br>
-<img src="http://url/to/img.png" alt="alt text" width="320" height="180">
+<img src="/images/oyundan_kare.jpg" alt="alt text" width="320" height="180">
